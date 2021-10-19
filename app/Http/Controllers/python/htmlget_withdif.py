@@ -25,7 +25,6 @@ arrPrintTime['up_pagelist-end'] = datetime.datetime.now()
 # =================================================
 # ====▼▼▼▼▼▼▼▼====       関数      ====▼▼▼▼▼▼▼▼====
 # =================================================
-from myfunction import regist_difference_bet_xterm
 from myfunction import create_htmlfile
 from myfunction import removeFile
 from myfunction import checkExistInBetTabel
@@ -34,7 +33,6 @@ from myfunction import checkDif_createDifFile
 from myfunction import tryBeautifulSoup
 from myfunction import get_linkurl
 from myfunction import mail_print
-
 
 
 # ======================================================================
@@ -90,8 +88,17 @@ for index,row in dfpreCreatePageid.iterrows():
 if li_delete_html_folder:
     mycursor.executemany(sql_sentence.create_page_del_update, li_delete_html_folder)
 
-# difference_bet_short/long term Table に未登録分新規追加
-regist_difference_bet_xterm(dfPageData)
+# difference_bet_shortterm Table に未登録分新規追加
+dfDiffernceShortData = pdsql.read_sql(sql_sentence.difference_shortterm_select, db)
+liDiffernceShortData = checkExistInBetTabel(dfPageData, dfDiffernceShortData)
+mycursor.executemany(sql_sentence.difference_shortterm_insert, liDiffernceShortData)
+db.commit
+
+# difference_bet_longterm Table に未登録分新規追加
+dfDiffernceLongData = pdsql.read_sql(sql_sentence.difference_longterm_select, db)
+liDiffernceLongData = checkExistInBetTabel(dfPageData, dfDiffernceLongData)
+mycursor.executemany(sql_sentence.difference_longterm_insert, liDiffernceLongData)
+db.commit
 
 arrPrintTime['preprocessing-end'] = datetime.datetime.now()
 
