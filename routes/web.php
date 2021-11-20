@@ -14,6 +14,9 @@ use App\Http\Controllers\ActiveCallController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\AnalysisController;
 use App\Http\Controllers\sshController;
+use App\Http\Controllers\PysettingController;
+use App\Http\Controllers\PysettingUrlWordController;
+// use App\Http\Controllers\PysettingController;
 use Illuminate\Support\Facades\File;
 
 
@@ -108,12 +111,34 @@ Route::get('python', [PythonController::class, 'exec'])
     ->middleware(['auth'])
     ->name('python');
 
+// Python設定-メイン画面
+Route::get('pysetting', [PysettingController::class, 'index'])
+    ->middleware(['auth'])
+    ->name('pysetting');
+
+// Python設定-スクレイピング除外タグ
+Route::get('pysetting/tag-to-exlude', [PysettingController::class, 'index'])
+    ->middleware(['auth'])
+    ->name('pysetting.tag-to-exlude');
+
+// Python設定-URL許可/除外リスト
+Route::get('pysetting/Url{OkorNg}Word', [PysettingUrlWordController::class, 'index'])
+    ->middleware(['auth'])
+    ->name('pysetting.Url{OkorNg}Word');
+
+// Python設定-URL許可/除外リスト
+Route::post('pysetting/Url{OkorNg}Word/', [PysettingUrlWordController::class, 'update'])
+    ->middleware(['auth'])
+    ->name('pysetting.Url{OkorNg}Word.update');
+
+
+
+
 
 // acquired_data コントローラー
 Route::get('prehtml/{file_namepath}/{page_id}', function($file_namepath, $page_id){
         return File::get(app_path("Http/Controllers/python/acquired_data/" . $file_namepath . "/html/" . $page_id . ".html"));
     })->middleware(['auth']);
-
 
 // different コントローラー
 Route::get('different/{term}/{page_id}', function($term,$page_id){
