@@ -131,10 +131,6 @@ Route::post('pysetting/Url{OkorNg}Word/', [PysettingUrlWordController::class, 'u
     ->middleware(['auth'])
     ->name('pysetting.Url{OkorNg}Word.update');
 
-
-
-
-
 // acquired_data コントローラー
 Route::get('prehtml/{file_namepath}/{page_id}', function($file_namepath, $page_id){
         return File::get(app_path("Http/Controllers/python/acquired_data/" . $file_namepath . "/html/" . $page_id . ".html"));
