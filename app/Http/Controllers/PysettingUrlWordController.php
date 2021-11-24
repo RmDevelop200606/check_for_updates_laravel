@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
+use App\Rules\AlphaRule;
 
 class PysettingUrlWordController extends Controller
 {
@@ -27,24 +28,42 @@ class PysettingUrlWordController extends Controller
     public function index($OkOrNg)
     {
         $urlWords = $this->urlWordDB::all();
+        $resultMsg = "";
+        $result = session('result');
+        if (isset($result)){
+            $resultMsg = (session('result')>0) ? "削除しました。" : "";
+        }
+        
         return view('python-url-word-setting')->with('urlWords', $urlWords)
                                 ->with('word_comment', $this->word_comment)
-                                ->with('word', $this->word);
+                                ->with('word', $this->word)
+                                ->with('resultMsg', $resultMsg);
     }
 
     public function update(Request $request, $OkOrNg)
     {
         $request->validate([
             'data.*.id' => 'required|integer',
-            'data.*.' . $this->word_comment => 'required',
-            'data.*.' . $this->word => 'required|regex:/\A([a-zA-Z0-9]{,})+\z/u',
+            'data.*.' . $this->word_comment => '',
+            'data.*.' . $this->word => ['required', new AlphaRule],
             'data.*.del_flg' => 'required|boolean',
         ]);
-        $this->urlWordDB::upsert($request->data, ['id']);
 
+        $result = $this->urlWordDB::upsert($request->data, ['id']);
+
+        $resultMsg = ($result > 0) ? "更新しました。" : "";
         $urlWords = $this->urlWordDB::all();
         return view('python-url-word-setting')->with('urlWords', $urlWords)
                             ->with('word_comment', $this->word_comment)
-                            ->with('word', $this->word);
+                            ->with('word', $this->word)
+                            ->with('resultMsg', $resultMsg);
+    }
+
+    public function delete($OkOrNg, $del_id)
+    {
+        if (preg_match('/^[0-9]+$/', $del_id)){
+            $result = $this->urlWordDB::where('id', (int)$del_id)->delete();
+        }
+        return redirect('pysetting/Url'. $OkOrNg .'Word/')->with(['result' => $result]);
     }
 }

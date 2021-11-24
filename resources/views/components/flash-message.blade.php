@@ -7,6 +7,6 @@ if(session('status') === 'alert'){$bgColor = 'text-red-500';}
 
 @if(session('message'))
   <div class="{{ $bgColor }} p-2 my-4">
-    {{ session('message' )}}
+    {{ session('message') }}
   </div>
 @endif

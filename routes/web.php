@@ -117,7 +117,7 @@ Route::get('pysetting', [PysettingController::class, 'index'])
     ->name('pysetting');
 
 // Python設定-スクレイピング除外タグ
-Route::get('pysetting/tag-to-exlude', [PysettingController::class, 'index'])
+Route::get('pysetting/tag-to-exlude', [PysettingTagToExludeController::class, 'index'])
     ->middleware(['auth'])
     ->name('pysetting.tag-to-exlude');
 
@@ -126,10 +126,15 @@ Route::get('pysetting/Url{OkorNg}Word', [PysettingUrlWordController::class, 'ind
     ->middleware(['auth'])
     ->name('pysetting.Url{OkorNg}Word');
 
-// Python設定-URL許可/除外リスト
+// Python設定-URL許可/除外リスト-登録
 Route::post('pysetting/Url{OkorNg}Word/', [PysettingUrlWordController::class, 'update'])
     ->middleware(['auth'])
     ->name('pysetting.Url{OkorNg}Word.update');
+
+// Python設定-URL許可/除外リスト-登録
+Route::get('pysetting/Url{OkorNg}Word/{id}', [PysettingUrlWordController::class, 'delete'])
+    ->middleware(['auth'])
+    ->name('pysetting.Url{OkorNg}Word.delete');
 
 // acquired_data コントローラー
 Route::get('prehtml/{file_namepath}/{page_id}', function($file_namepath, $page_id){
