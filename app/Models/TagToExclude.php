@@ -10,7 +10,7 @@ class TagToExclude extends Model
      *
      * @var string
      */
-    protected $table = 'tag_to_exlude';
+    protected $table = 'tag_to_exclude';
 
     /**
      * テーブルに関連付ける主キー

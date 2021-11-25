@@ -1,6 +1,6 @@
 @extends('pysetting')
 @section('content')
-<script src="{{ asset('js/python-setting.js') }}" defer></script>
+
 <div class="py-6">
   <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -28,32 +28,45 @@
               <thead>
                 <tr>
                   <th class="px-4 py-2 w-1/12 ididid">id</th>
-                  <th class="px-4 py-2 w-4/12">タイトル</th>
-                  <th class="px-4 py-2 w-4/12">キーワード</th>
+                  <th class="px-4 py-2 w-2/12">タイトル</th>
+                  <th class="px-4 py-2 w-2/12">タグ名</th>
+                  <th class="px-4 py-2 w-2/12">属性</th>
+                  <th class="px-4 py-2 w-2/12">属性値</th>
                   <th class="px-4 py-2 w-1/12">使用</th>
                   <th class="px-4 py-2 w-1/12">削除</th>
                 </tr>
               </thead>
               <tbody>
                 
-                @foreach ($urlWords as $urlWord)
-                  <tr id="{{ $urlWord->id }}">
-                    <td class="border px-4 py-2 text-center @error('data.'. $urlWord->id. '.id')bg-yellow-200 @enderror">
-                      <span>{{ $urlWord->id }}</span>
-                      <input name="data[{{ $urlWord->id }}][id]" value="{{ $urlWord->id }}" hidden>
+                @foreach ($tags as $urlWord)
+                  <tr id="{{ $urlWord->xpass_id }}">
+                    <td class="border px-4 py-2 text-center @error('data.'. $urlWord->xpass_id. '.id')bg-yellow-200 @enderror">
+                      <span>{{ $urlWord->xpass_id }}</span>
+                      <input name="data[{{ $urlWord->xpass_id }}][id]" value="{{ $urlWord->xpass_id }}" hidden>
                     </td>
-                    <td class="border px-4 py-2 @error('data.'. $urlWord->id. '.' . $word_comment)bg-yellow-200 @enderror">
-                      <input type="text" name="data[{{ $urlWord->id }}][{{ $word_comment }}]" class="w-full" value="{{ $urlWord->$word_comment }}">
+                    <td class="border px-4 py-2 @error('data.'. $urlWord->xpass_id . '.xpass_name')bg-yellow-200 @enderror">
+                      <input type="text" name="data[{{ $urlWord->xpass_id }}][xpass_name]" class="w-full" value="{{ $urlWord->xpass_name }}">
                     </td>
-                    <td class="border px-4 py-2 @error('data.'. $urlWord->id. '.' . $word)bg-yellow-200 @enderror">
-                      <input type="text" name="data[{{ $urlWord->id }}][{{ $word }}]" class="w-full" value="{{ $urlWord->$word }}">
+                    <td class="border px-4 py-2 @error('data.'. $urlWord->xpass_id . '.tag_name')bg-yellow-200 @enderror">
+                      <input type="text" name="data[{{ $urlWord->xpass_id }}][tag_name]" class="w-full" value="{{ $urlWord->tag_name }}">
                     </td>
-                    <td class="border px-4 py-2 text-center @error('data.'. $urlWord->id. '.del_flg')bg-yellow-200 @enderror">
-                      <input type="checkbox" class="useCheck cursor-pointer" value="del_flg{{ $urlWord->id }}" {{ $urlWord->del_flg == 0 ? 'checked' : '' }}>
-                      <input name="data[{{ $urlWord->id }}][del_flg]" id="del_flg{{ $urlWord->id }}" value="" hidden="hidden">
+
+                    <td class="border px-4 py-2 @error('data.'. $urlWord->xpass_id . '.attribute_value')bg-yellow-200 @enderror">
+                      <input type="text" name="data[{{ $urlWord->xpass_id }}][attribute_value]" class="w-full" value="{{ $urlWord->attribute_value }}">
+                    </td>
+                    
+                    <td class="border px-4 py-2 @error('data.'. $urlWord->xpass_id . '.tag_or_attribute')bg-yellow-200 @enderror">
+                      <input type="text" name="data[{{ $urlWord->xpass_id }}][tag_or_attribute]" class="w-full" value="{{ $urlWord->tag_or_attribute }}">
+                    </td>
+
+
+
+                    <td class="border px-4 py-2 text-center @error('data.'. $urlWord->xpass_id. '.del_flg')bg-yellow-200 @enderror">
+                      <input type="checkbox" class="useCheck cursor-pointer" value="del_flg{{ $urlWord->xpass_id }}" {{ $urlWord->del_flg == 0 ? 'checked' : '' }}>
+                      <input name="data[{{ $urlWord->xpass_id }}][del_flg]" id="del_flg{{ $urlWord->xpass_id }}" value="" hidden="hidden">
                     </td>
                     <td class="border px-4 py-2 text-center">
-                      <x-delete-link :url="str_replace(url('/'),'',request()->fullUrl()) . '/' . $urlWord->id" class="delete-button">
+                      <x-delete-link :url="str_replace(url('/'),'',request()->fullUrl()) . '/' . $urlWord->xpass_id" class="delete-button">
                         {{ __("削除") }}
                       </x-delete-link>
                       
@@ -61,14 +74,14 @@
                   </tr>
                 @endforeach
                 
-                @if($urlWords->isEmpty())
+                @if($tags->isEmpty())
                 <tr id="1">
                   <td class="border px-4 py-2 text-center">
                     <span>1</span>
                     <input name="data[1][id]" value="1" hidden>
                   </td>
                   <td class="border px-4 py-2">
-                    <input type="text" name="data[1][{{ $word_comment }}]" class="w-full" value="">
+                    <input type="text" name="data[1][xpass_name]" class="w-full" value="">
                   </td>
                   <td class="border px-4 py-2">
                     <input type="text" name="data[1][{{ $word }}]" class="w-full" value="">

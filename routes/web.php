@@ -15,6 +15,7 @@ use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\AnalysisController;
 use App\Http\Controllers\sshController;
 use App\Http\Controllers\PysettingController;
+use App\Http\Controllers\PysettingTagToExludeController;
 use App\Http\Controllers\PysettingUrlWordController;
 // use App\Http\Controllers\PysettingController;
 use Illuminate\Support\Facades\File;

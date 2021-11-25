@@ -1,5 +1,4 @@
 <x-app-layout>
-  <script src="{{ asset('js/python-setting.js') }}" defer></script>
   <x-slot name="header">
       <h2 class="font-semibold text-xl text-gray-800 leading-tight">
           {{ __('corsin-Python設定') }}
@@ -15,9 +14,15 @@
             {{-- 現在のurlによって、選択されるlinkの色が変わります。 --}}
             
             <div>
-              <x-nomal-link :url="route('not-active.index')" class="" >
-                {{ __("スクレイピング除外タグ") }}
-              </x-nomal-link>
+              @if (request()->fullUrl() == route('pysetting.tag-to-exlude'))
+                <x-nomal-active-link :url="route('pysetting.tag-to-exlude')" class="">
+                  {{ __("スクレイピング除外タグ") }}
+                </x-nomal-active-link>
+              @else
+                <x-nomal-link :url="route('pysetting.tag-to-exlude')" class="" >
+                  {{ __("スクレイピング除外タグ") }}
+                </x-nomal-link>
+              @endif
             </div>
             
             
