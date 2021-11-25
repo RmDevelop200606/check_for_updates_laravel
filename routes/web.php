@@ -13,6 +13,7 @@ use App\Http\Controllers\LineRegisterController;
 use App\Http\Controllers\ActiveCallController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\AnalysisController;
+use App\Http\Controllers\CSVOutputController;
 use Illuminate\Support\Facades\File;
 
 
@@ -114,5 +115,10 @@ Route::get('different/{term}/{page_id}', function($term,$page_id){
         return File::get(app_path("Http/Controllers/python/different/" . $term . "_term/" . $page_id . ".html"));
     })->middleware(['auth']);
 
-    
+// CSV出力
+Route::get('/makecsv', [CSVOutputController::class, 'makecsv'])
+    ->middleware(['auth', 'record'])
+    ->name('makecsv');
+
+
 require __DIR__.'/auth.php';

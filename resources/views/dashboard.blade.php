@@ -70,7 +70,7 @@
                     </div> --}}
 
                     <div class="p-6 bg-white border-b border-gray-200">
-                        <a href="{{route('not-active.index')}}" class="cursor-pointer bg-transparent bg-red-500 hover:bg-red-700 font-semibold text-white py-2 px-4 rounded opacity-90">
+                        <a href="{{route('makecsv')}}" class="cursor-pointer bg-transparent bg-red-500 hover:bg-red-700 font-semibold text-white py-2 px-4 rounded opacity-90">
                             csvエクスポート
                         </a>
                     </div>
