@@ -122,6 +122,11 @@ Route::get('pysetting/tag-to-exlude', [PysettingTagToExludeController::class, 'i
     ->middleware(['auth'])
     ->name('pysetting.tag-to-exlude');
 
+// Python設定-スクレイピング除外タグ
+Route::post('pysetting/tag-to-exlude', [PysettingTagToExludeController::class, 'update'])
+    ->middleware(['auth'])
+    ->name('pysetting.tag-to-exlude');
+
 // Python設定-URL許可/除外リスト
 Route::get('pysetting/Url{OkorNg}Word', [PysettingUrlWordController::class, 'index'])
     ->middleware(['auth'])

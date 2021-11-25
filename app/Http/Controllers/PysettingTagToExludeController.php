@@ -22,23 +22,25 @@ class PysettingTagToExludeController extends Controller
         }
         
         return view('python-tag-to-exclude-setting')->with('tags', $tags)
-                                ->with('resultMsg', $resultMsg);
+                                                    ->with('resultMsg', $resultMsg);
     }
 
     public function update(Request $request)
     {
         $request->validate([
-            'data.*.id' => 'required|integer',
-            'data.*.' . $this->word_comment => '',
-            'data.*.' . $this->word => ['required', new AlphaRule],
+            'data.*.xpass_id' => 'required|integer',
+            'data.*.xpass_name' => 'required',
+            'data.*.tag_name' => ['alpha'],
+            'data.*.attribute_value' => [new AlphaRule],
+            'data.*.tag_or_attribute' => 'required|boolean',
             'data.*.del_flg' => 'required|boolean',
         ]);
 
         // // $result = $this->urlWordDB::upsert($request->data, ['id']);
-
-        // $resultMsg = ($result > 0) ? "更新しました。" : "";
-        // return view('python-url-word-setting')->with('urlWords', $urlWords)
-        //                     ->with('resultMsg', $resultMsg);
+        $resultMsg = "";
+        $tags = TagToExclude::all();
+        return view('python-tag-to-exclude-setting')->with('tags', $tags)
+                                                    ->with('resultMsg', $resultMsg);
     }
 
     // public function delete($OkOrNg, $del_id)
