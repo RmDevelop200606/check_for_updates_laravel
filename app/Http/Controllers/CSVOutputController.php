@@ -31,7 +31,7 @@ class CSVOutputController extends Controller
     */
     public function makecsv(Request $request){
         // リクエストから入力したステータスを取得
-        $blogStatus = $request->collect()['blogStatus'];
+        $updated = $request->collect()['updated'];
         $lineStatus = $request->collect()['lineStatus'];
 
         // リクエストに応じたクエリを発行
@@ -39,12 +39,12 @@ class CSVOutputController extends Controller
                                 ->where('blog_flg', 1)
                                 ->where('active_flg', 1)
                                 ->where('del_flg', 0)
-                                ->whereHas('long_diff', function($query){
-                                    $query->where('difference_flg', 0)
+                                ->whereHas('long_diff', function($query) use($updated){
+                                    $query->where('difference_flg', $updated)
                                         ->groupBy('customer_id');
                                 })
-                                ->wherehas('line_register', function($query){
-                                    $query->where('line_flg', 0);
+                                ->wherehas('line_register', function($query) use($lineStatus){
+                                    $query->where('line_flg', $lineStatus);
                                 })
                                 ->get();
 
@@ -52,7 +52,7 @@ class CSVOutputController extends Controller
         $now = Carbon::now();//今日の日付
         $line = ['なし','あり'];//リクエストのパラメーターより値を決定
         $blog = ['なし','あり'];//リクエストのパラメーターより値を決定
-        $csvFileName = $now->year.'_'.$now->month.'_'.$now->day.'_更新'.$blog[$blogStatus].'_LINE'.$line[$lineStatus].'.csv';
+        $csvFileName = $now->year.'_'.$now->month.'_'.$now->day.'_更新'.$blog[$updated].'_LINE'.$line[$lineStatus].'.csv';
         // csvファイルの中身を作成するメソッドを実行
         $this->makeCsvData($customers, $csvFileName);
 
