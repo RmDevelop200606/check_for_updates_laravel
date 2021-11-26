@@ -120,9 +120,9 @@ Route::get('/csv', [CSVOutputController::class, 'index'])
     ->middleware(['auth', 'record'])
     ->name('csv.index');
 
-Route::post('/csv', [CSVOutputController::class, 'store'])
+Route::post('/csv', [CSVOutputController::class, 'makecsv'])
     ->middleware(['auth'])
-    ->name('csv.store');
+    ->name('csv.makecsv');
 
 
 require __DIR__.'/auth.php';
