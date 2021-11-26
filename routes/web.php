@@ -116,9 +116,13 @@ Route::get('different/{term}/{page_id}', function($term,$page_id){
     })->middleware(['auth']);
 
 // CSV出力
-Route::get('/makecsv', [CSVOutputController::class, 'makecsv'])
+Route::get('/csv', [CSVOutputController::class, 'index'])
     ->middleware(['auth', 'record'])
-    ->name('makecsv');
+    ->name('csv.index');
+
+Route::post('/csv', [CSVOutputController::class, 'makecsv'])
+    ->middleware(['auth'])
+    ->name('csv.makecsv');
 
 
 require __DIR__.'/auth.php';

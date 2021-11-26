@@ -38,6 +38,13 @@
                     </x-nav-link>
                 </div>
 
+                <!-- csv出力ページ -->
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('csv.index')" :active="request()->routeIs('csv.index')">
+                        {{ __('csv出力') }}
+                    </x-nav-link>
+                </div>
+
                 <!-- 検索 -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('search.index')" :active="request()->routeIs('search.index')">
@@ -103,7 +110,7 @@
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('user.index')" :active="request()->routeIs('user.index')">
-                {{ __('user.index') }}
+                {{ __('進捗状況シート') }}
             </x-responsive-nav-link>
         </div>
 
@@ -117,7 +124,7 @@
             <div class="mt-3 space-y-1">
                 <!-- user.index -->
                 <x-responsive-nav-link :href="route('user.index')">
-                    {{ __('user.index') }}
+                    {{ __('進捗状況シート') }}
                 </x-responsive-nav-link>
             </div>
 
@@ -139,6 +146,13 @@
                 <!-- ブログ無し -->
                 <x-responsive-nav-link :href="route('noblog.index')">
                     {{ __('ブログ無し') }}
+                </x-responsive-nav-link>
+            </div>
+
+            <div class="mt-3 space-y-1">
+                <!-- csv出力ページ -->
+                <x-responsive-nav-link :href="route('csv.index')">
+                    {{ __('csv出力') }}
                 </x-responsive-nav-link>
             </div>
 
