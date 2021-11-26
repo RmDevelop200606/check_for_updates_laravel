@@ -35,7 +35,7 @@ class Customer extends Model
         return $this->hasMany(CustomerPage::class, 'page_id');
     }
 
-    
+
     public function page_html(){
         return $this->hasMany(PageHtml::class, 'html_id', 'customer_id');
     }
@@ -56,11 +56,14 @@ class Customer extends Model
         return $this->hasOne(DifferenceBetShortterm::class, 'customer_id','customer_id')->oldestOfMany();
     }
 
+    // public function long_diff(){
+    //     return $this->hasOne(LongDifference::class, 'customer_id','customer_id')->ofMany([
+    //         'time_stamp_dif_long' => 'max',
+    //         'difference_flg' => 'max'
+    //     ]);
+    // }
     public function long_diff(){
-        return $this->hasOne(LongDifference::class, 'customer_id','customer_id')->ofMany([
-            'time_stamp_dif_long' => 'max',
-            'difference_flg' => 'max'
-        ]);
+        return $this->hasMany(LongDifference::class, 'customer_id','customer_id');
     }
 
 

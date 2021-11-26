@@ -13,7 +13,7 @@ use App\Http\Controllers\LineRegisterController;
 use App\Http\Controllers\ActiveCallController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\AnalysisController;
-use App\Http\Controllers\sshController;
+use App\Http\Controllers\CSVOutputController;
 use Illuminate\Support\Facades\File;
 
 
@@ -89,11 +89,6 @@ Route::get('/writecustomerid', [LineRegisterController::class, 'writeCustomerId'
     ->middleware(['auth'])
     ->name('writecustomerid');
 
-// sshコントローラー
-Route::get('/ssh', [sshController::class, 'getfile'])
-    ->middleware(['auth'])
-    ->name('ssh');
-
 // 検索機能
 Route::get('/search', [SearchController::class, 'index'])
     ->middleware(['auth'])
@@ -120,5 +115,10 @@ Route::get('different/{term}/{page_id}', function($term,$page_id){
         return File::get(app_path("Http/Controllers/python/different/" . $term . "_term/" . $page_id . ".html"));
     })->middleware(['auth']);
 
-    
+// CSV出力
+Route::get('/makecsv', [CSVOutputController::class, 'makecsv'])
+    ->middleware(['auth', 'record'])
+    ->name('makecsv');
+
+
 require __DIR__.'/auth.php';
