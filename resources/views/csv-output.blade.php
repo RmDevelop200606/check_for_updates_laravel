@@ -11,7 +11,7 @@
             <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">CSV出力条件選択</h1>
         </div>
         <!-- ▼フォーム -->
-        <form action="" method="POST">
+        <form action="{{ route('csv.makecsv') }}" method="POST">
             @csrf
             <div class="flex lg:w-2/3 w-full sm:flex-row flex-col mx-auto px-8 sm:space-x-4 sm:space-y-0 space-y-4 sm:px-0 items-end">
                     <div class="relative flex-grow w-full">
