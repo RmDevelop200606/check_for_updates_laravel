@@ -9,7 +9,7 @@ use Carbon\Carbon;
 
 class CSVOutputController extends Controller
 {
-        /**
+            /**
     * makecsvメソッド
     *
     */
@@ -24,12 +24,17 @@ class CSVOutputController extends Controller
                                 })
                                 ->get();
 
-        $csv = $this->makeCsvData($customers);
+        // csvファイルの名前を定義
+        $now = Carbon::now();
+        $csvFileName = $now->year.'_'.$now->month.'_'.$now->day.'_更新'.'なし'.'_LINE'.'なし'.'.csv';
+        // csvファイルの中身を作成するメソッドを実行
+        $this->makeCsvData($customers, $csvFileName);
+
 
         header("Content-Type: application/octet-stream");
-        header('Content-Length: '.filesize('test.csv'));
-        header('Content-Disposition: attachment; filename=test.csv');
-        readfile('test.csv');
+        header('Content-Length: '.filesize($csvFileName));
+        header('Content-Disposition: attachment; filename='. $csvFileName);
+        readfile($csvFileName);
     }
 
 
@@ -38,8 +43,10 @@ class CSVOutputController extends Controller
     * makecsvメソッド内で取得した$customersから、csv出力する情報を抽出する
     *
     */
-    private function makeCsvData($customers){
-        $csvFile = fopen('test.csv', 'w');
+    private function makeCsvData($customers, $csvFileName){
+
+
+        $csvFile = fopen($csvFileName, 'w');
 
         // csv1行目のヘッダー情報作成、shift-Jisへの変換、csvファイルに追記
         $columns = [
