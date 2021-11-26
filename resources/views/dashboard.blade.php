@@ -20,8 +20,8 @@
                         <script src="/Applications/MAMP/htdocs/check_for_updates_laravel/chartjs-plugin-annotation/src/annotation.js"></script>
                         <script src="{{ asset('js/blog-bar-chart.js') }}" defer></script>
                         </div>
-                    
-                        
+
+
                         <div class="flex">
                             <div class="w-1/3 p-4">
                                 {{-- <h3>メールアドレス保有</h3> --}}
@@ -47,8 +47,8 @@
                             </div>
                         </div>
                 </div>
-                
-                
+
+
                 {{-- ▼管理者メニュー --}}
                 @if(Auth::user()->is_admin == 1)
                     <div class="p-6 bg-white border-b border-gray-200">
@@ -61,7 +61,7 @@
                             {{ __('停止中顧客一覧') }}
                         </a>
                     </div>
-                
+
                     {{-- Lineテーブルへcustomer_idの書き込み（エクセル→DBにデータ移行するとき必要、120秒でタイムアウトするが、くじけず５回くらい実行する） --}}
                     {{-- <div class="p-6 bg-white border-b border-gray-200">
                         <a href="{{ route('writecustomerid') }}" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150 ml-3">
@@ -70,11 +70,11 @@
                     </div> --}}
 
                     <div class="p-6 bg-white border-b border-gray-200">
-                        <a href="{{route('makecsv')}}" class="cursor-pointer bg-transparent bg-red-500 hover:bg-red-700 font-semibold text-white py-2 px-4 rounded opacity-90">
+                        <a href="{{route('csv.makecsv')}}" class="cursor-pointer bg-transparent bg-red-500 hover:bg-red-700 font-semibold text-white py-2 px-4 rounded opacity-90">
                             csvエクスポート
                         </a>
                     </div>
-                    
+
                 @endif
                 {{-- ▲管理者メニュー --}}
             </div>
