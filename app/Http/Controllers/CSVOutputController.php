@@ -9,11 +9,19 @@ use Carbon\Carbon;
 
 class CSVOutputController extends Controller
 {
+                /**
+    * indexメソッド
+    * csv出力をするためのビューと、これまで出力した履歴を表示する
+    */
+    public function index(){
+        return view('csv-output');
+    }
+
             /**
     * makecsvメソッド
     *
     */
-    public function makecsv(Request $request){
+    public function store(Request $request){
         $customers = Customer::with('line_register', 'long_diff')
                                 ->whereHas('long_diff', function($query){
                                     $query->where('difference_flg', 1)
