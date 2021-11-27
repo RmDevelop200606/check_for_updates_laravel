@@ -36,9 +36,18 @@ $(function() {
         }
     });
 
+
+    //////========== ▲▲▲▲　example tabel 開閉　▲▲▲▲ ===========//////
+    $(document).on('click', '#example-open-close', function(){
+        $("#example-wrapper").fadeToggle();
+        if ($(this).text() == "-"){
+            $(this).text("+");
+        }else{
+            $(this).text("-");
+        }
+    });
+
     //////========== ▲▲▲▲　tabel 追加　▲▲▲▲ ===========//////
-
-
     // 「使用」checkbox が変化したら、値を入れる
     $(document).on('change', '.useCheck', function(){
         var del_flg_id = $(this).val();

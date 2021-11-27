@@ -5,6 +5,100 @@
   <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
       <div class="p-6 bg-white border-b border-gray-200">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight px-4">
+          {{ __('登録ルール - 除外タグ') }}
+        </h2>
+
+        <div id="example-wrapper" class="py-4 px-4" hidden>
+          <div>
+            <span>
+              html を比較するときに、除外するタグや除外する属性をここで設定できます。<br>
+              アクセス時に毎回生成されるトークンや、JavaScript で動き続けるスライドを比較対象から取り除くために設定します。
+            </span>
+          </div>
+          <table id="example-table" class="table-fixed w-full">
+            <thead>
+              <tr>
+                <th class="px-4 py-2 w-20">タグ名</th>
+                <th class="px-4 py-2 w-20">属性</th>
+                <th class="px-4 py-2 w-20">属性値</th>
+                <th class="px-4 py-2 w-20">X path</th>
+                <th class="px-4 py-2 w-8">タグごと<br>削除</th>
+                <th class="px-4 py-2 w-8">属性のみ<br>削除</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="border px-4 py-2 text-center">input</td>
+                <td class="border px-4 py-2 text-center">name</td>
+                <td class="border px-4 py-2 text-center">inquiryform</td>
+                <td class="border px-4 py-2 text-center">.//input[@name='inquiryform']</td>
+                <td class="border px-4 py-2 text-center">○</td>
+                <td class="border px-4 py-2 text-center">○</td>
+              </tr>
+              <tr>
+                <td class="border px-4 py-2 text-center">-</td>
+                <td class="border px-4 py-2 text-center">name</td>
+                <td class="border px-4 py-2 text-center">inquiryform</td>
+                <td class="border px-4 py-2 text-center">.//*[@name='inquiryform']</td>
+                <td class="border px-4 py-2 text-center">○</td>
+                <td class="border px-4 py-2 text-center">○</td>
+              </tr>
+              <tr>
+                <td class="border px-4 py-2 text-center">style</td>
+                <td class="border px-4 py-2 text-center">-</td>
+                <td class="border px-4 py-2 text-center">-</td>
+                <td class="border px-4 py-2 text-center">.//style</td>
+                <td class="border px-4 py-2 text-center">○</td>
+                <td class="border px-4 py-2 text-center">✖</td>
+              </tr>
+              <tr>
+                <td class="border px-4 py-2 text-center">-</td>
+                <td class="border px-4 py-2 text-center">width</td>
+                <td class="border px-4 py-2 text-center">-</td>
+                <td class="border px-4 py-2 text-center">別途属性削除処理</td>
+                <td class="border px-4 py-2 text-center">✖</td>
+                <td class="border px-4 py-2 text-center">○</td>
+              </tr>
+              <tr>
+                <td class="border px-4 py-2 text-center">-</td>
+                <td class="border px-4 py-2 text-center">-</td>
+                <td class="border px-4 py-2 text-center">inquiryform</td>
+                <td class="border px-4 py-2 text-center">✖</td>
+                <td class="border px-4 py-2 text-center">✖</td>
+                <td class="border px-4 py-2 text-center">✖</td>
+              </tr>
+              <tr>
+                <td class="border px-4 py-2 text-center">input</td>
+                <td class="border px-4 py-2 text-center">-</td>
+                <td class="border px-4 py-2 text-center">inquiryform</td>
+                <td class="border px-4 py-2 text-center">✖</td>
+                <td class="border px-4 py-2 text-center">✖</td>
+                <td class="border px-4 py-2 text-center">✖</td>
+              </tr>
+              <tr>
+                <td class="border px-4 py-2 text-center">input</td>
+                <td class="border px-4 py-2 text-center">name</td>
+                <td class="border px-4 py-2 text-center">-</td>
+                <td class="border px-4 py-2 text-center">✖</td>
+                <td class="border px-4 py-2 text-center">✖</td>
+                <td class="border px-4 py-2 text-center">✖</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="flex justify-center items-center space-x-6 py-4">
+          <div id="example-open-close" class="cursor-pointer bg-green-500 hover:bg-green-300 text-white h-6 w-6 text-center font-extrabold flex items-center justify-center rounded-full">+</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="py-6">
+  <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+      <div class="p-6 bg-white border-b border-gray-200">
         <form action="/{{request()->path() }}" method="POST">
           {{ csrf_field() }}
           <div class="px-4 py-2">
@@ -75,13 +169,12 @@
                     </td>
 
                     <td class="border px-4 py-2 text-center">
-                      <x-delete-link :url="str_replace(url('/'),'',request()->fullUrl()) . '/' . $tag->xpass_id" class="delete-button">
+                      <x-delete-link :url="route('pysetting.tag-to-exlude') . '/' . $tag->xpass_id" class="delete-button">
                         {{ __("削除") }}
                       </x-delete-link>
                     </td>
                   </tr>
                 @endforeach
-                
                 @if($tags->isEmpty())
                   <tr id="1" class="plus-tr">
                     <td class="border px-4 py-2 text-center">

@@ -15,7 +15,7 @@ $(function() {
             <tr id="' +(++id)+ '" class="plus-tr">\
                 <td class="border px-4 py-2 text-center">\
                     <span>' +(id)+ '</span>\
-                    <input name="data[' +(id)+ '][id]" value="' +(id)+ '" hidden>\
+                    <input name="data[' +(id)+ '][xpass_id]" value="' +(id)+ '" hidden>\
                 </td>\
                 <td class="border px-4 py-2">\
                     <input type="text" name="data[' +(id)+ '][xpass_name]" class="w-full">\
@@ -48,7 +48,6 @@ $(function() {
         $("#data-table tbody").append(html);
         $('.useCheck').change();
         $('.plus-tr .select-box').change();
-        
     });
 
     $("#trminus").on("click", function() {
@@ -59,9 +58,17 @@ $(function() {
         }
     });
 
+    //////========== ▲▲▲▲　example tabel 開閉　▲▲▲▲ ===========//////
+    $(document).on('click', '#example-open-close', function(){
+        $("#example-wrapper").fadeToggle();
+        if ($(this).text() == "-"){
+            $(this).text("+");
+        }else{
+            $(this).text("-");
+        }
+    });
+
     //////========== ▲▲▲▲　tabel 追加　▲▲▲▲ ===========//////
-
-
     // 「使用」checkbox が変化したら、値を入れる
     $(document).on('change', '.useCheck', function(){
         var del_flg_id = $(this).val();
@@ -72,13 +79,6 @@ $(function() {
         }
     });
     $('.useCheck').change();
-
-
-    $(document).on('change', '.plus-tr .select-box', function(){
-        // var del_flg_id = $(this).val();
-
-    });
-    
 });
 
 
