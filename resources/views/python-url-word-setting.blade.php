@@ -4,6 +4,40 @@
   <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
       <div class="p-6 bg-white border-b border-gray-200">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight px-4">
+          {{ __('登録ルール - URL 特別ワード') }}
+        </h2>
+
+        <div id="example-wrapper" class="py-4 px-4" hidden>
+          <div>
+            <span>
+              【概要】
+              URL の深さはデフォルトで 1 になっています。<br>
+              深さというのはドメインの後のスラッシュの階層のことで「http://www.example.com/blog/」これは深さ 1 です。 <br>
+              <br>
+              【使用例】<br>
+              ☆ OK ワード<br>
+              　EC-Cube のトップページの URL は 「http://www.example.com/blog/shop/products/list.php」 で深さが1より大きいためチェックできません。<br>
+              　そのため、OK ワードに「products/list.php」を入れておくと、例外的にチェックが可能となります。<br>
+              <br>
+              ☆ NG ワード<br>
+              　カレンダーページは 「http://www.example.com/calendar/」で深さが 1 です。<br>
+              　しかし、見る必要がほぼないが、日々 HTML の変更が自動で行われるため、チェックがする必要がありません。<br>
+              　そのため、NG ワードに「calendar」を入れておくと、例外的にチェックが不要とできます。<br>
+            </span>
+          </div>
+        </div>
+        <div class="flex justify-center items-center space-x-6 py-4">
+          <div id="example-open-close" class="cursor-pointer bg-green-500 hover:bg-green-300 text-white h-6 w-6 text-center font-extrabold flex items-center justify-center rounded-full">+</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="py-6">
+  <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+      <div class="p-6 bg-white border-b border-gray-200">
         <form action="/{{request()->path() }}" method="POST">
           {{ csrf_field() }}
           <div class="px-4 py-2">
@@ -42,13 +76,13 @@
                       <input name="data[{{ $urlWord->id }}][id]" value="{{ $urlWord->id }}" hidden>
                     </td>
                     <td class="border px-4 py-2 @error('data.'. $urlWord->id. '.' . $word_comment)bg-yellow-200 @enderror">
-                      <input type="text" name="data[{{ $urlWord->id }}][{{ $word_comment }}]" class="w-full" value="{{ $urlWord->$word_comment }}">
+                      <input type="text" name="data[{{ $urlWord->id }}][{{ $word_comment }}]" class="w-full" value="{{ old('data.' . $urlWord->id . '.' . $word_comment, $urlWord->$word_comment ) }}">
                     </td>
                     <td class="border px-4 py-2 @error('data.'. $urlWord->id. '.' . $word)bg-yellow-200 @enderror">
-                      <input type="text" name="data[{{ $urlWord->id }}][{{ $word }}]" class="w-full" value="{{ $urlWord->$word }}">
+                      <input type="text" name="data[{{ $urlWord->id }}][{{ $word }}]" class="w-full" value="{{ old('data.' . $urlWord->id . '.' . $word, $urlWord->$word )}}">
                     </td>
                     <td class="border px-4 py-2 text-center @error('data.'. $urlWord->id. '.del_flg')bg-yellow-200 @enderror">
-                      <input type="checkbox" class="useCheck cursor-pointer" value="del_flg{{ $urlWord->id }}" {{ $urlWord->del_flg == 0 ? 'checked' : '' }}>
+                      <input type="checkbox" class="useCheck cursor-pointer" value="del_flg{{ $urlWord->id }}" {{ old('data.' . $urlWord->id . '.del_flg', $urlWord->del_flg ) == 0 ? 'checked' : '' }}>
                       <input name="data[{{ $urlWord->id }}][del_flg]" id="del_flg{{ $urlWord->id }}" value="" hidden="hidden">
                     </td>
                     <td class="border px-4 py-2 text-center">

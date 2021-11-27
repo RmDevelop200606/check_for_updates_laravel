@@ -12,34 +12,42 @@ $(function() {
         //
         var html = 
         '\
-            <tr id="' +(++id)+ '">\
-            <td class="border px-4 py-2 text-center">\
-            <span>' +(id)+ '</span>\
-            <input name="data[' +(id)+ '][id]" value="' +(id)+ '" hidden>\
-            </td>\
-            <td class="border px-4 py-2">\
-            <input type="text" name="data[' +(id)+ '][xpass_name]" class="w-full">\
-            </td>\
-            <td class="border px-4 py-2">\
-            <input type="text" name="data[' +(id)+ '][tag_name]" class="w-full">\
-            </td>\
-            <td class="border px-4 py-2">\
-            <input type="text" name="data[' +(id)+ '][attribute_value]" class="w-full">\
-            </td>\
-            <td class="border px-4 py-2">\
-            <input type="text" name="data[' +(id)+ '][tag_or_attribute]" class="w-full">\
-            </td>\
-            <td class="border px-4 py-2 text-center">\
-            <input type="checkbox" class="useCheck cursor-pointer" value="del_flg' +(id)+ '">\
-            <input name="data[' +(id)+ '][del_flg]" id="del_flg' +(id)+ '" value="" hidden="hidden">\
-            </td>\
-            <td class="border px-4 py-2 text-center">\
-            </td>\
-        </tr>\
-      ';
+            <tr id="' +(++id)+ '" class="plus-tr">\
+                <td class="border px-4 py-2 text-center">\
+                    <span>' +(id)+ '</span>\
+                    <input name="data[' +(id)+ '][xpass_id]" value="' +(id)+ '" hidden>\
+                </td>\
+                <td class="border px-4 py-2">\
+                    <input type="text" name="data[' +(id)+ '][xpass_name]" class="w-full">\
+                </td>\
+                <td class="border px-4 py-2">\
+                    <input type="text" name="data[' +(id)+ '][tag_name]" class="w-full">\
+                </td>\
+                <td class="border px-4 py-2">\
+                    <input type="text" name="data[' +(id)+ '][attribute]" class="w-full">\
+                </td>\
+                <td class="border px-4 py-2">\
+                    <input type="text" name="data[' +(id)+ '][attribute_value]" class="w-full">\
+                </td>\
+                <td class="border px-4 py-2">\
+                    <select class="w-full select-box" name="data[' +(id)+ '][tag_or_attribute]">\
+                        <option value="-1" hidden>選択してください</option>\
+                        <option value="0">タグごと削除</option>\
+                        <option value="1">属性のみ削除</option>\
+                    </select>\
+                </td>\
+                <td class="border px-4 py-2 text-center">\
+                    <input type="checkbox" class="useCheck cursor-pointer" value="del_flg' +(id)+ '">\
+                    <input name="data[' +(id)+ '][del_flg]" id="del_flg' +(id)+ '" value="" hidden="hidden">\
+                </td>\
+                <td class="border px-4 py-2 text-center">\
+                </td>\
+            </tr>\
+        ';
 
         $("#data-table tbody").append(html);
         $('.useCheck').change();
+        $('.plus-tr .select-box').change();
     });
 
     $("#trminus").on("click", function() {
@@ -50,9 +58,17 @@ $(function() {
         }
     });
 
+    //////========== ▲▲▲▲　example tabel 開閉　▲▲▲▲ ===========//////
+    $(document).on('click', '#example-open-close', function(){
+        $("#example-wrapper").fadeToggle();
+        if ($(this).text() == "-"){
+            $(this).text("+");
+        }else{
+            $(this).text("-");
+        }
+    });
+
     //////========== ▲▲▲▲　tabel 追加　▲▲▲▲ ===========//////
-
-
     // 「使用」checkbox が変化したら、値を入れる
     $(document).on('change', '.useCheck', function(){
         var del_flg_id = $(this).val();
@@ -63,5 +79,6 @@ $(function() {
         }
     });
     $('.useCheck').change();
-
 });
+
+
