@@ -106,7 +106,7 @@ Route::get('python', [PythonController::class, 'exec'])
 // Python設定-メイン画面
 Route::get('pysetting', [PysettingController::class, 'index'])
     ->middleware(['auth'])
-    ->name('pysetting');
+    ->name('pysetting.index');
 
 // Python設定-スクレイピング除外タグ
 Route::get('pysetting/tag-to-exlude', [PysettingTagToExludeController::class, 'index'])
