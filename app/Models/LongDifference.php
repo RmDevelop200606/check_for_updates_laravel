@@ -34,10 +34,14 @@ class LongDifference extends Model
         return $this->belongsTo(CustomerPage::class, 'page_id');
     }
 
-    
+
     public function customer(){
         return $this->belongsTo(Customer::class, 'customer_id', 'customer_id');
     }
+
+    // public function line(){
+    //     return $this->belongsTo(LineRegister::class, 'customer_id','customer_id');
+    // }
 
     // ソート可能なカラム
     public $sortable = [

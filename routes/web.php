@@ -18,6 +18,7 @@ use App\Http\Controllers\PysettingController;
 use App\Http\Controllers\PysettingTagToExludeController;
 use App\Http\Controllers\PysettingUrlWordController;
 // use App\Http\Controllers\PysettingController;
+use App\Http\Controllers\CSVOutputController;
 use Illuminate\Support\Facades\File;
 
 
@@ -40,15 +41,10 @@ Route::get('/', function () {
 //     return view('dashboard');
 // })->middleware(['auth'])->name('dashboard');
 
-// user編集ページ
+// トップページ、user編集ページ
 Route::resource('user', UserController::class)
     ->middleware(['auth', 'record'])
     ->only(['index','edit', 'update']);
-
-// analysisページ
-Route::get('analysis',[AnalysisController::class, 'index'])
-    ->middleware(['auth', 'record'])
-    ->name('analysis.index');
 
 // 顧客一覧表示
 Route::resource('customer', CustomerController::class)
@@ -92,11 +88,6 @@ Route::resource('review', ReviewController::class)
 Route::get('/writecustomerid', [LineRegisterController::class, 'writeCustomerId'])
     ->middleware(['auth'])
     ->name('writecustomerid');
-
-// sshコントローラー
-Route::get('/ssh', [sshController::class, 'getfile'])
-    ->middleware(['auth'])
-    ->name('ssh');
 
 // 検索機能
 Route::get('/search', [SearchController::class, 'index'])
@@ -152,5 +143,14 @@ Route::get('different/{term}/{page_id}', function($term,$page_id){
         return File::get(app_path("Http/Controllers/python/different/" . $term . "_term/" . $page_id . ".html"));
     })->middleware(['auth']);
 
-    
+// CSV出力
+Route::get('/csv', [CSVOutputController::class, 'index'])
+    ->middleware(['auth', 'record'])
+    ->name('csv.index');
+
+Route::post('/csv', [CSVOutputController::class, 'makecsv'])
+    ->middleware(['auth'])
+    ->name('csv.makecsv');
+
+
 require __DIR__.'/auth.php';
