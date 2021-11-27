@@ -61,7 +61,6 @@ class CSVOutputController extends Controller
         header('Content-Length: '.filesize($csvFileName));
         header('Content-Disposition: attachment; filename='. $csvFileName);
         readfile($csvFileName);//ファイルの出力
-
     }
 
 

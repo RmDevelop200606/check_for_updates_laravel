@@ -39,11 +39,13 @@
                 </div>
 
                 <!-- csv出力ページ -->
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('csv.index')" :active="request()->routeIs('csv.index')">
-                        {{ __('csv出力') }}
-                    </x-nav-link>
-                </div>
+                @if (Auth::user()->is_admin == 1)
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-nav-link :href="route('csv.index')" :active="request()->routeIs('csv.index')">
+                            {{ __('csv出力') }}
+                        </x-nav-link>
+                    </div>
+                @endif
 
                 <!-- 検索 -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
@@ -149,12 +151,14 @@
                 </x-responsive-nav-link>
             </div>
 
-            <div class="mt-3 space-y-1">
-                <!-- csv出力ページ -->
-                <x-responsive-nav-link :href="route('csv.index')">
-                    {{ __('csv出力') }}
-                </x-responsive-nav-link>
-            </div>
+            @if (Auth::user()->is_admin == 1)
+                <div class="mt-3 space-y-1">
+                    <!-- csv出力ページ -->
+                    <x-responsive-nav-link :href="route('csv.index')">
+                        {{ __('csv出力') }}
+                    </x-responsive-nav-link>
+                </div>
+            @endif
 
             <div class="mt-3 space-y-1">
                 <!-- 登録画面編集 -->
