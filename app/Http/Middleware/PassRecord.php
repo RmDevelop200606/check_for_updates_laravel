@@ -32,7 +32,7 @@ class PassRecord
         $line = LineRegister::where('line_flg', 1)->count();
         $activeCall = ActiveCall::where('active_call_flg', 1)->count();
         $review = Review::where('review_flg', 1)->count();
-        
+
         // ブログありの顧客で、更新している顧客数を出力
         $updated = Customer::with('long_diff')
                                 ->where('blog_flg', 1)
@@ -51,6 +51,7 @@ class PassRecord
             "line" => $line,
             "lineRegisterRate" => round($line / $blogCustomersAll * 100, 1),
             "activeCall" => $activeCall,
+            "activeCallRate" => round($activeCall / $blogCustomersAll * 100, 1),
             "review" => $review,
             "updated" => $updated,
         ];
