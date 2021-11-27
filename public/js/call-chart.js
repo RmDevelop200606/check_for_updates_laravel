@@ -1,7 +1,6 @@
 var node = document.getElementById("call");
 const call = node.dataset.call;
-var all = node.dataset.all;
-var all = all - mail;
+const activeCallAll = node.dataset.all;
 
 var ctx = document.getElementById("call").getContext('2d');
 var myChart = new Chart(ctx, {
@@ -10,7 +9,7 @@ var myChart = new Chart(ctx, {
         labels: ["10/1移行アクティブコール実施"],
         datasets: [{
             // label: '得票数',
-            data: [call, all],
+            data: [call, activeCallAll],
             backgroundColor: [
                 'rgba(75, 192, 192, 0.2)',
                 'rgba(255, 99, 132, 0.2)',

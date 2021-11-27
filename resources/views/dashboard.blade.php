@@ -22,13 +22,13 @@
                         <div class="flex">
                             <!-- メールアドレスの円グラフ（未実装） -->
                             <div class="w-1/3 p-4">
-                                <canvas id="mail" data-mail="1" data-all="{{$record['blogCustomersAll']}}"></canvas>
+                                <canvas id="mail" data-mail="0" data-all="{{$record['blogCustomersAll']}}"></canvas>
                                 <script src="{{ asset('js/mail-chart.js') }}" defer></script>
                             </div>
 
                             <!-- ライン登録の円グラフ -->
                             <div class="w-1/3 p-4 relative">
-                                <canvas id="LineRegister" data-line="{{$record['line']}}" data-all="{{$record['blogCustomersAll'] - $record['line']}}">555</canvas>
+                                <canvas id="LineRegister" data-line="{{$record['line']}}" data-all="{{$record['blogCustomersAll'] - $record['line']}}"></canvas>
                                 <script src="{{ asset('js/line-chart.js') }}" defer></script>
                                 <div class="w-full absolute inset-1/2 font-bold text-gray-500">
                                     <p>{{$record['lineRegisterRate']}}%</p>
