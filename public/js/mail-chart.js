@@ -1,7 +1,6 @@
 var node = document.getElementById("mail");
 const mail = node.dataset.mail;
-var all = node.dataset.all;
-var all = all - mail;
+var MailAll = node.dataset.all;
 
 var ctx = document.getElementById("mail").getContext('2d');
 var myChart = new Chart(ctx, {
@@ -10,7 +9,7 @@ var myChart = new Chart(ctx, {
         labels: ["メールアドレス保有"],
         datasets: [{
             // label: '得票数',
-            data: [mail, all],
+            data: [mail, MailAll],
             backgroundColor: [
                 'rgba(75, 192, 192, 0.2)',
                 'rgba(255, 99, 132, 0.2)',

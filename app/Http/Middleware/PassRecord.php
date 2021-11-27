@@ -29,20 +29,36 @@ class PassRecord
                             ->count();
         $users = User::with(['line_register', 'active_call', 'review'])->get();
         // 獲得した「ライン、アクティブコール、口コミ」数を出力
-        $line = LineRegister::where('line_flg', 1)->count();
-        $activeCall = ActiveCall::where('active_call_flg', 1)->count();
+        // $line = LineRegister::where('line_flg', 1)->count();
+        $line = Customer::with('line_register')
+                    ->where('blog_flg', 1)
+                    ->where('active_flg', 1)
+                    ->where('del_flg', 0)
+                    ->whereHas('line_register', function($query){
+                        $query->where('line_flg', 1);
+                    })
+                    ->count();
+        // $activeCall = ActiveCall::where('active_call_flg', 1)->count();
+        $activeCall = Customer::with('active_call')
+                    ->where('blog_flg', 1)
+                    ->where('active_flg', 1)
+                    ->where('del_flg', 0)
+                    ->whereHas('active_call', function($query){
+                        $query->where('active_call_flg', 1);
+                    })
+                    ->count();
         $review = Review::where('review_flg', 1)->count();
 
         // ブログありの顧客で、更新している顧客数を出力
         $updated = Customer::with('long_diff')
-                                ->where('blog_flg', 1)
-                                ->where('active_flg', 1)
-                                ->where('del_flg', 0)
-                                ->whereHas('long_diff', function($query){
-                                    $query->where('difference_flg', 1)
-                                        ->groupBy('customer_id');
-                                })
-                                ->count();
+                        ->where('blog_flg', 1)
+                        ->where('active_flg', 1)
+                        ->where('del_flg', 0)
+                        ->whereHas('long_diff', function($query){
+                            $query->where('difference_flg', 1)
+                                ->groupBy('customer_id');
+                        })
+                        ->count();
 
         // 配列に格納して、コントローラに渡す
         $record = [

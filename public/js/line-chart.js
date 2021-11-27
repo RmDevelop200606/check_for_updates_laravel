@@ -1,7 +1,6 @@
 var node = document.getElementById("LineRegister");
 const line = node.dataset.line;
-var all = node.dataset.all;
-var all = all - line;
+const all = node.dataset.all;
 
 var ctx = document.getElementById("LineRegister").getContext('2d');
 var myChart = new Chart(ctx, {
