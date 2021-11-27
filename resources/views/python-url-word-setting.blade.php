@@ -28,7 +28,7 @@
           </div>
         </div>
         <div class="flex justify-center items-center space-x-6 py-4">
-          <div id="example-open-close" class="cursor-pointer bg-green-500 hover:bg-green-300 text-white h-6 w-6 text-center font-extrabold flex items-center justify-center rounded-full">+</div>
+          <div id="example-open-close" class="cursor-pointer bg-blue-500 hover:bg-blue-300 text-white h-6 w-6 text-center font-extrabold flex items-center justify-center rounded-full">+</div>
         </div>
       </div>
     </div>
