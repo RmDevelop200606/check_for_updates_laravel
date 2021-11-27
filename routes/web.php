@@ -36,15 +36,10 @@ Route::get('/', function () {
 //     return view('dashboard');
 // })->middleware(['auth'])->name('dashboard');
 
-// user編集ページ
+// トップページ、user編集ページ
 Route::resource('user', UserController::class)
     ->middleware(['auth', 'record'])
     ->only(['index','edit', 'update']);
-
-// analysisページ
-Route::get('analysis',[AnalysisController::class, 'index'])
-    ->middleware(['auth', 'record'])
-    ->name('analysis.index');
 
 // 顧客一覧表示
 Route::resource('customer', CustomerController::class)
