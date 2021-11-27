@@ -16,29 +16,35 @@ use App\Models\LineRegister;
 class PassRecord
 {
     /**
-     * Handle an incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
-     * @return mixed
+     * ///////////////////////////////////////////////////////////////////////////////
+     * トップページに表示する進捗状況を表示するための成績を取得する関数
+     * ///////////////////////////////////////////////////////////////////////////////
      */
     public function handle(Request $request, Closure $next)
     {
+        // ブログ契約の顧客数を取得
         $blogCustomersAll = Customer::where('blog_flg', 1)
                             ->where('active_flg', 1)
                             ->where('del_flg', 0)
                             ->count();
         $users = User::with(['line_register', 'active_call', 'review'])->get();
+        // 獲得した「ライン、アクティブコール、口コミ」数を出力
         $line = LineRegister::where('line_flg', 1)->count();
         $activeCall = ActiveCall::where('active_call_flg', 1)->count();
         $review = Review::where('review_flg', 1)->count();
-        $haveLongDifference = LongDifference::selectRaw('count(customer_id) as customer_count, customer_id')
-                            ->groupBy('customer_id')
-                            ->where('difference_flg', 1)
-                            ->get();
-        $updated = $haveLongDifference->count();
+        
+        // ブログありの顧客で、更新している顧客数を出力
+        $updated = Customer::with('long_diff')
+                                ->where('blog_flg', 1)
+                                ->where('active_flg', 1)
+                                ->where('del_flg', 0)
+                                ->whereHas('long_diff', function($query){
+                                    $query->where('difference_flg', 1)
+                                        ->groupBy('customer_id');
+                                })
+                                ->count();
 
-
+        // 配列に格納して、コントローラに渡す
         $record = [
             "blogCustomersAll" => $blogCustomersAll,
             "users" => $users,
@@ -47,7 +53,6 @@ class PassRecord
             "activeCall" => $activeCall,
             "review" => $review,
             "updated" => $updated,
-            // "sabunRate" => round(100 - ($updated / $blogCustomersAll * 100), 1),
         ];
 
         $request->merge(['record'=>$record]);
