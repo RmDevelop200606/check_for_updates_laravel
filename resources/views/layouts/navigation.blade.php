@@ -41,7 +41,7 @@
                 <!-- ブログあり、更新あり -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('hasblog.updated')" :active="request()->routeIs('hasblog.updated')">
-                        {{ __('ブログあり、更新あり') }}
+                        {{ __('ブログあり、差分あり') }}
                     </x-nav-link>
                 </div>
 
@@ -61,7 +61,7 @@
                     </div>
                 @endif
 
-         
+
                 @if (Auth::user()->is_admin == 1)
                     <!-- Python設定 -->
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
