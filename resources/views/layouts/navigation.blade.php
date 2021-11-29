@@ -61,6 +61,16 @@
                     </div>
                 @endif
 
+         
+                @if (Auth::user()->is_admin == 1)
+                    <!-- Python設定 -->
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-nav-link :href="route('pysetting.index')" :active="request()->routeIs('pysetting.index')">
+                            {{ __('Python設定') }}
+                        </x-nav-link>
+                    </div>
+                @endif
+
             </div>
 
             <!-- Settings Dropdown -->
