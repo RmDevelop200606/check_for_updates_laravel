@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Customer;
 use App\Models\CustomerPage;
-use App\Models\PageHtml;
 use App\Models\CreateHtml;
 use App\Models\LongDifference;
 use Illuminate\Http\Request;
@@ -17,15 +16,21 @@ class CustomerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        // $customers = Customer::with(['line_register','long_diff'])
-        //                             ->where('active_flg', 1)
-        //                             ->where('del_flg', 0)
-        //                             ->sortable()
-        //                             ->paginate(50);
+        // リクエストに応じたクエリを発行
+        $customers = Customer::with('long_diff')
+                                ->where('blog_flg', 1)
+                                ->where('active_flg', 1)
+                                ->where('del_flg', 0)
+                                ->whereHas('long_diff', function($query){
+                                    $query->where('difference_flg', 1)
+                                        ->groupBy('customer_id');
+                                })
+                                ->first();
+        dd($customers->long_diff->max('time_stamp_dif_long'));
 
-        // return view('customer')->with('customers', $customers);
+        return view('customer')->with('customers', $customers);
     }
 
     /**
@@ -42,7 +47,7 @@ class CustomerController extends Controller
                             ->get();
 
         $htmlPreModels = CreateHtml::orderBy("create_html_id", 'desc')->limit(3)->get();
-        
+
         foreach ($htmlPreModels as $key => $htmlPreModel){
             $htmlPreDirs['full'][$key] = "Http/Controllers/python/acquired_data/" . $htmlPreModel["filename_timestamp"] ."/html/";
             $htmlPreDirs['filename'][$key] = $htmlPreModel["filename_timestamp"];
