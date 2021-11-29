@@ -57,14 +57,9 @@ Route::resource('customer-page', CustomerPageController::class)
     ->only(['index', 'show']);
 
 // ブログあり
-Route::get('/hasblog', [HasBlogController::class, 'index'])
+Route::resource('hasblog', HasBlogController::class)
     ->middleware(['auth'])
-    ->name('hasblog.index');
-
-// ブログあり(更新あり)
-Route::get('/hasblog-updated', [HasBlogController::class, 'updated'])
-    ->middleware(['auth'])
-    ->name('hasblog.updated');
+    ->only(['index', 'show']);
 
 // ブログなし
 Route::resource('noblog', NoBlogController::class)
