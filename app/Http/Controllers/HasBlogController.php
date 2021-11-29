@@ -28,28 +28,68 @@ class HasBlogController extends Controller
     }
 
     /**
-     * 更新ありのユーザーのみ表示
-     * Display a listing of the resource.
+     * Show the form for creating a new resource.
      *
+     * @return \Illuminate\Http\Response
      */
-    public function updated(){
-        // リクエストに応じたクエリを発行
-        $customers = Customer::with('long_diff')
-                ->where('blog_flg', 1)
-                ->where('active_flg', 1)
-                ->where('del_flg', 0)
-                ->whereHas('long_diff', function($query){
-                    $query->where('difference_flg', 1)
-                        ->groupBy('customer_id');
-                })
-                ->sortable()
-                ->paginate(100);
+    public function create()
+    {
+        //
+    }
 
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        //
+    }
 
-        // dd($customers->long_diff->max('time_stamp_dif_long'));
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Customer  $customer
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Customer $customer)
+    {
+        //
+    }
 
-        // dd($customers);
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\Customer  $customer
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Customer $customer)
+    {
+        //
+    }
 
-        return view('hasblog-updated')->with('customers', $customers);
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Customer  $customer
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, Customer $customer)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Customer  $customer
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Customer $customer)
+    {
+        //
     }
 }

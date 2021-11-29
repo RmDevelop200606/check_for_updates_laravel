@@ -38,20 +38,6 @@
                     </x-nav-link>
                 </div>
 
-                <!-- ブログあり、更新あり -->
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('hasblog.updated')" :active="request()->routeIs('hasblog.updated')">
-                        {{ __('ブログあり、更新あり') }}
-                    </x-nav-link>
-                </div>
-
-                <!-- 検索 -->
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('search.index')" :active="request()->routeIs('search.index')">
-                        {{ __('検索') }}
-                    </x-nav-link>
-                </div>
-
                 <!-- csv出力ページ -->
                 @if (Auth::user()->is_admin == 1)
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
@@ -61,7 +47,13 @@
                     </div>
                 @endif
 
-         
+                <!-- 検索 -->
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('search.index')" :active="request()->routeIs('search.index')">
+                        {{ __('検索') }}
+                    </x-nav-link>
+                </div>
+                
                 @if (Auth::user()->is_admin == 1)
                     <!-- Python設定 -->
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
@@ -70,7 +62,6 @@
                         </x-nav-link>
                     </div>
                 @endif
-
             </div>
 
             <!-- Settings Dropdown -->
