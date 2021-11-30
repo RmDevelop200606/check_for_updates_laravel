@@ -48,23 +48,31 @@
                         </div>
                     </div>
                 </div>
-                {{-- ▼管理者メニュー --}}
+
+                <!-- -- ▼管理者メニュー -- -->
                 @if(Auth::user()->is_admin == 1)
                     <div class="p-6 bg-white border-b border-gray-200">
-                        <a href="{{ route('not-active.index') }}" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150 ml-3">
+                        <a href="{{ route('not-active.index') }}" class="cursor-pointer bg-transparent bg-gray-500 hover:bg-gray-700 font-semibold text-white py-2 px-4 rounded opacity-90">
                             {{ __('停止中顧客一覧') }}
                         </a>
                     </div>
 
-                    {{-- Lineテーブルへcustomer_idの書き込み（エクセル→DBにデータ移行するとき必要、120秒でタイムアウトするが、くじけず５回くらい実行する） --}}
-                    {{-- <div class="p-6 bg-white border-b border-gray-200">
-                        <a href="{{ route('writecustomerid') }}" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150 ml-3">
-                            {{ __('LineRegisterテーブル、customer_id書き換え') }}
+                    <div class="p-6 bg-white border-b border-gray-200">
+                        <a href="{{ route('excel') }}" class="cursor-pointer bg-transparent bg-gray-500 hover:bg-gray-700 font-semibold text-white py-2 px-4 rounded opacity-90">
+                            {{ __('新規顧客アップロード') }}
                         </a>
-                    </div> --}}
+                    </div>
+
+
+                    <!-- Lineテーブルへcustomer_idの書き込み（エクセル→DBにデータ移行するとき必要、120秒でタイムアウトするが、くじけず５回くらい実行する） -->
+                    <!-- <div class="p-6 bg-white border-b border-gray-200"> -->
+                        <!-- <a href="{{ route('writecustomerid') }}" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150 ml-3"> -->
+                            <!-- __('LineRegisterテーブル、customer_id書き換え') -->
+                        <!-- </a> -->
+                    <!-- </div> -->
 
                 @endif
-                {{-- ▲管理者メニュー --}}
+                <!--  ▲管理者メニュー  -->
             </div>
         </div>
     </div>
