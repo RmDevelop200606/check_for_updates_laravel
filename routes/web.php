@@ -12,13 +12,12 @@ use App\Http\Controllers\SearchController;
 use App\Http\Controllers\LineRegisterController;
 use App\Http\Controllers\ActiveCallController;
 use App\Http\Controllers\ReviewController;
-use App\Http\Controllers\AnalysisController;
-use App\Http\Controllers\sshController;
 use App\Http\Controllers\PysettingController;
 use App\Http\Controllers\PysettingTagToExludeController;
 use App\Http\Controllers\PysettingUrlWordController;
 // use App\Http\Controllers\PysettingController;
 use App\Http\Controllers\CSVOutputController;
+use App\Http\Controllers\AddNewCustomersController;
 use Illuminate\Support\Facades\File;
 
 
@@ -156,6 +155,16 @@ Route::get('/csv', [CSVOutputController::class, 'index'])
 Route::post('/csv', [CSVOutputController::class, 'makecsv'])
     ->middleware(['auth'])
     ->name('csv.makecsv');
+
+// エクセルのアップロード
+Route::get('/addNewCustomers', [AddNewCustomersController::class, 'index'])
+    ->middleware('auth')
+    ->name('excel');
+
+Route::post('/addNewCustomers', [AddNewCustomersController::class, 'openExcel'])
+    ->middleware('auth')
+    ->name('excel.upload');
+
 
 
 require __DIR__.'/auth.php';
