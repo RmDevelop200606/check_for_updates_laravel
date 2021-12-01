@@ -1,4 +1,25 @@
 <x-app-layout>
+<script>
+function confirmFunction(button) {
+    //確認ダイアログを表示する
+    if(document.getElementById('file').value){
+        var result = confirm('新規顧客の追加を行います。よろしいですか？');
+        if (result == true){
+            button.classList.remove('hover:bg-indigo-600');
+            button.value = 'アップロード中 ページ遷移禁止 待機してください';
+            button.submit();
+            button.disabled = true;
+        }else{
+            return false;
+        }
+    }else{
+        alert('ファイルを選択してください。')
+        return false;
+    }
+
+    
+}
+</script>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('corsin') }}
@@ -23,9 +44,9 @@
                 @csrf
                 <div class="flex lg:w-2/3 w-full sm:flex-row flex-col mx-auto px-8 sm:space-x-4 sm:space-y-0 space-y-4 sm:px-0 items-end">
                     <div class="relative flex-grow w-full">
-                        <input type="file" id="file" name="file" class="form-control">
+                        <input type="file" id="file" name="file" class="form-control" accept=".xlsx, .xlsm, .xls">
                     </div>
-                    <input type="submit" value="アップロード" required onclick="return confirm('新規顧客の追加を行います。よろしいですか？')" class="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg whitespace-nowrap">
+                    <input type="submit" value="アップロード" required onclick="return confirmFunction(this)" class="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg whitespace-nowrap">
                 </div>
             </form>
             <!-- ▲フォーム -->
