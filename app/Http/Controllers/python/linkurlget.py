@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from re import A
 import DBconfig
 db = DBconfig.functionDBconfig()
 mycursor = db.cursor()
