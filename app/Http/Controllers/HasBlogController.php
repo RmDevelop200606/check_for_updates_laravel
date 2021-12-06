@@ -52,4 +52,30 @@ class HasBlogController extends Controller
 
         return view('hasblog-updated')->with('customers', $customers);
     }
+
+        /**
+     * 更新ありのユーザーのみ表示
+     * Display a listing of the resource.
+     *
+     */
+    public function not_updated(){
+        // リクエストに応じたクエリを発行
+        $customers = Customer::with('long_diff')
+                ->where('blog_flg', 1)
+                ->where('active_flg', 1)
+                ->where('del_flg', 0)
+                ->whereDoesntHave('long_diff', function($query){
+                    $query->where('difference_flg', 1)
+                        ->groupBy('customer_id');
+                })
+                ->sortable()
+                ->paginate(100);
+
+
+        // dd($customers->long_diff->max('time_stamp_dif_long'));
+
+        // dd($customers);
+
+        return view('hasblog-updated')->with('customers', $customers);
+    }
 }

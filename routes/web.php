@@ -66,6 +66,11 @@ Route::get('/hasblog-updated', [HasBlogController::class, 'updated'])
     ->middleware(['auth'])
     ->name('hasblog.updated');
 
+// ブログあり(更新なし)
+Route::get('/hasblog-not-updated', [HasBlogController::class, 'not_updated'])
+    ->middleware(['auth'])
+    ->name('hasblog.not-updated');
+
 // ブログなし
 Route::resource('noblog', NoBlogController::class)
     ->middleware(['auth'])

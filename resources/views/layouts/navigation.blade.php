@@ -45,6 +45,13 @@
                     </x-nav-link>
                 </div>
 
+                <!-- ブログあり、更新あり -->
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('hasblog.not-updated')" :active="request()->routeIs('hasblog.not-updated')">
+                        {{ __('ブログあり、差分なし') }}
+                    </x-nav-link>
+                </div>
+
                 <!-- 検索 -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('search.index')" :active="request()->routeIs('search.index')">

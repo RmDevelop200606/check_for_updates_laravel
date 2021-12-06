@@ -76,16 +76,30 @@
             @endif
             {{-- ▲JS編集用customer_id --}}
             {{-- ▼差分の表示 --}}
-            <x-table-td :active="$count % 2 == 1">
-                <x-sabun-a href="{{route('customer.show', [$customer->customer_id])}}" :haveDifference="true">
-                {{ __('差分あり') }}
-                </x-sabun-a>
-            </x-table-td>
+
+            @if (request()->is('*hasblog-updated*'))
+                <x-table-td :active="$count % 2 == 1">
+                    <x-sabun-a href="{{route('customer.show', [$customer->customer_id])}}" :haveDifference="true">
+                    {{ __('差分あり') }}
+                    </x-sabun-a>
+                </x-table-td>
+            @elseif (request()->is('*hasblog-not-updated*'))
+                <x-table-td :active="$count % 2 == 1">
+                    <x-sabun-a href="{{route('customer.show', [$customer->customer_id])}}" :haveDifference="false">
+                    {{ __('差分なし') }}
+                    </x-sabun-a>
+                </x-table-td>
+            @endif
+
 
             {{-- ▲ --}}
 
             {{-- 差分がある場合は時間表示 --}}
-            <x-table-td :active="$count % 2 == 1">{{ __(\Carbon\Carbon::parse($customer->long_diff->max('time_stamp_dif_long'))->diffForHumans()) }}</x-table-td>
+            @if (request()->is('*hasblog-updated*'))
+                <x-table-td :active="$count % 2 == 1">{{ __(\Carbon\Carbon::parse($customer->long_diff->max('time_stamp_dif_long'))->diffForHumans()) }}</x-table-td>
+            @elseif (request()->is('*hasblog-not-updated*'))
+                <x-table-td :active="$count % 2 == 1">{{ __() }}</x-table-td>
+            @endif
 
             {{-- ▲ --}}
           </tr>
