@@ -13,7 +13,7 @@
           <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">検索</button>
         </div>
       </form>
-    </div>  
+    </div>
   </x-slot>
 
   <div class="py-12">
@@ -55,7 +55,7 @@
 
   {{-- 検索結果一覧表示 --}}
   @if(Request::is('search/result'))
-  
+
     @if(count($customers) > 0)
       <section class="text-gray-600 body-font">
         <div class="xl:container px-5 py-24 mx-auto">
@@ -78,7 +78,7 @@
                   <x-table-th>{{ __('URL') }}</x-table-th>
                 </tr>
               </thead>
-      
+
               {{-- 配色が交互になるようカウント --}}
               <?php $count = 1; ?>
               <!-- 顧客情報表示 -->
@@ -114,7 +114,7 @@
               {{ $customers->links() }}
             </div>
           </div>
-      
+
         </div>
       </section>
     @endif
@@ -134,7 +134,7 @@
 
   <script>
     const allCustomers = @json($allCustomers);
-    // 
+    //
     function doSearch(list){
       console.log(list);
     }
@@ -149,7 +149,7 @@
             // クラスhiddenを除去、aタグ内に要素追加
             var div = document.getElementById("div" + i);
             div.classList.remove("hidden");
-            div.innerHTML = "<a href='customer/" + list[0] + "'>" + "<span class='font-bold text-blue-500'" + ">" + list[1] + "</span><br>" + customer.support_id + " " + customer.customer_name + " " + customer.customer_toppage_url + "</a>";
+            div.innerHTML = "<a href='/customer/" + list[0] + "'>" + "<span class='font-bold text-blue-500'" + ">" + list[1] + "</span><br>" + customer.support_id + " " + customer.customer_name + " " + customer.customer_toppage_url + "</a>";
 
             i++;
           }
@@ -160,7 +160,7 @@
       }
     }
     // △makeSearchList
-    
+
     // ▼searchCustomer関数
     // 10件まで、配列でcustomerテーブルからサポートID、顧客名、URL顧客と検索ワードの一致を見る
     function searchCustomer(input, allCustomers) {
@@ -176,7 +176,7 @@
         var supportId = [customer.customer_id, String(customer.support_id)];
         var customerName = [customer.customer_id, String(customer.customer_name)];
         var customerUrl = [customer.customer_id, String(customer.customer_toppage_url)];
-                
+
         if(supportId[1].indexOf(String(input)) > -1){
           searchResults.push(supportId);
           count++;
