@@ -16,7 +16,7 @@ def functionDBconfig():
     else:
         db = mc.connect(
             user='xs330114_root',
-            passwd='Dn9ERS24k8KV.Qy',
+            passwd='rmg200606',
             host='127.0.0.1',
             db='xs330114_rmcervn',
             charset='utf8')
